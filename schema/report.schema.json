@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevSkillScanReport",
+  "type": "object",
+  "required": ["scan_id", "timestamp", "total_findings", "findings"],
+  "properties": {
+    "scan_id": {"type": "string", "description": "Unique identifier for this scan"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "total_findings": {"type": "integer"},
+    "findings_by_severity": {
+      "type": "object",
+      "properties": {
+        "critical": {"type": "integer"},
+        "high": {"type": "integer"},
+        "medium": {"type": "integer"},
+        "low": {"type": "integer"}
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["skill_id", "skill_name", "severity", "source"],
+        "properties": {
+          "skill_id": {"type": "string"},
+          "skill_name": {"type": "string"},
+          "severity": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+          "match": {"type": "string"},
+          "masked_match": {"type": "string"},
+          "source": {"type": "string"},
+          "line_number": {"type": "integer"},
+          "description": {"type": "string"},
+          "impact": {"type": "string"}
+        }
+      }
+    },
+    "summary": {"type": "string"},
+    "token_cost_total": {"type": "integer"},
+    "scan_meta": {
+      "type": "object",
+      "properties": {
+        "path": {"type": "string"},
+        "skills_loaded": {"type": "integer"},
+        "files_scanned": {"type": "integer"},
+        "duration_seconds": {"type": "number"}
+      }
+    }
+  }
+}

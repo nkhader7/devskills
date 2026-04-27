@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DevSkill",
+  "type": "object",
+  "required": ["id", "version", "name", "description", "category", "severity", "token_cost", "detection"],
+  "properties": {
+    "id": {"type": "string"},
+    "version": {"type": "string"},
+    "name": {"type": "string"},
+    "description": {"type": "string"},
+    "category": {"type": "string"},
+    "severity": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "token_cost": {
+      "type": "object",
+      "required": ["estimate", "model_agnostic", "unit"],
+      "properties": {
+        "estimate": {
+          "type": "integer",
+          "description": "Estimated LLM tokens consumed when this skill is embedded in a prompt"
+        },
+        "model_agnostic": {"type": "boolean"},
+        "unit": {"type": "string"}
+      }
+    },
+    "detection": {
+      "type": "object",
+      "properties": {
+        "regex": {"type": "string"},
+        "entropy": {"type": "number"},
+        "keywords": {"type": "array", "items": {"type": "string"}},
+        "path_filter": {"type": "string"},
+        "allowlist": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "remediation": {
+      "type": "object",
+      "properties": {
+        "action": {"type": "string"},
+        "docs": {"type": "string"}
+      }
+    },
+    "report": {
+      "type": "object",
+      "properties": {
+        "finding_type": {"type": "string"},
+        "impact": {"type": "string"}
+      }
+    }
+  }
+}
